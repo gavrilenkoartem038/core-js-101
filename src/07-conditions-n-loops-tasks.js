@@ -172,8 +172,9 @@ function isInsideCircle(circle, point) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  const arr = str.split('');
+  return arr.find((elem) => arr.filter((el) => el === elem).length === 1);
 }
 
 
@@ -405,8 +406,16 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(p) {
+  for (let i = 0; i < 3; i += 1) {
+    if (p[0][i] === p[1][i] && p[0][i] === p[2][i] && p[0][i] !== undefined) return p[0][i];
+  }
+  for (let i = 0; i < 3; i += 1) {
+    if (p[i][0] === p[i][1] && p[i][0] === p[i][2] && p[i][0] !== undefined) return p[i][0];
+  }
+  if (p[0][0] === p[1][1] && p[0][0] === p[2][2] && p[0][0] !== undefined) return p[0][0];
+  if (p[0][2] === p[1][1] && p[0][2] === p[2][0] && p[0][2] !== undefined) return p[0][2];
+  return undefined;
 }
 
 
