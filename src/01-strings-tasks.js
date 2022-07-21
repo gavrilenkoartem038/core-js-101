@@ -281,8 +281,21 @@ function isString(value) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const data = {
+    '♣': 0,
+    '♦': 13,
+    '♥': 26,
+    '♠': 39,
+    A: 1,
+    J: 11,
+    Q: 12,
+    K: 13,
+  };
+  let firstPart = value.slice(0, value.length - 1);
+  firstPart = data[firstPart] ? data[firstPart] : Number(firstPart);
+  const secondPart = value.slice(-1);
+  return firstPart + data[secondPart] - 1;
 }
 
 

@@ -265,8 +265,20 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const arr = [...ccn.toString()].map(Number).reverse();
+  const num = arr.reduce((acc, value, index) => {
+    let val = value;
+    if (index % 2 !== 0) {
+      val *= 2;
+      if (val > 9) {
+        val = [...val.toString()].map(Number);
+        val = Number(val[0]) + Number(val[1]);
+      }
+    }
+    return acc + val;
+  }, 0);
+  return num % 10 === 0;
 }
 
 /**
@@ -310,8 +322,16 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const bracketsArr = [['[', ']'], ['{', '}'], ['(', ')'], ['<', '>']];
+  const arr = str.split('');
+  for (let i = 0; i < arr.length - 1; i += 1) {
+    if (bracketsArr.some((el) => el[0] === arr[i] && el[1] === arr[i + 1])) {
+      arr.splice(i, 2);
+      i -= 2;
+    }
+  }
+  return arr.length === 0;
 }
 
 
@@ -352,8 +372,16 @@ function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  let res = '';
+  for (let i = 0; i < pathes[0].length; i += 1) {
+    const char = pathes[0][i];
+    if (!pathes.every((path) => path[i] === char)) {
+      return res.slice(0, res.lastIndexOf('/') + 1);
+    }
+    res += char;
+  }
+  return res;
 }
 
 
@@ -375,8 +403,19 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const result = [];
+  for (let i = 0; i < m1.length; i += 1) {
+    result[i] = [];
+    for (let j = 0; j < m2[0].length; j += 1) {
+      let elem = 0;
+      for (let k = 0; k < m1[0].length; k += 1) {
+        elem += m1[i][k] * m2[k][j];
+      }
+      result[i][j] = elem;
+    }
+  }
+  return result;
 }
 
 
